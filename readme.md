@@ -52,6 +52,13 @@ This CRM (Customer Relationship Management) software is designed to manage clien
 
 # <p align="center"> III. Code Structure/Architecture</p>
 
+The technologies used in this project are :
+
+-   Python 3.x
+-   PostgreSQL (database)
+-   SQLAlchemy (ORM)
+-   bcrypt (hashing & salt)
+
 ### Controllers
 
 The `controllers` directory contains the business logic for the application. Each controller handles specific functionalities such as client management, contract management, event management, user authentication, and utility functions.
@@ -67,7 +74,7 @@ The `controllers` directory contains the business logic for the application. Eac
 
 ### Models
 
-The `models` directory contains the database models defined using SQLAlchemy. These models represent the tables in the database.
+The `models` directory contains the database models defined using SQLAlchemy. These models represent the tables in the database. The 12 rounds of passwords hashing with a grain of salt are processed by the bcrypt package.
 
 -   **models.py**: Defines the database models for users, clients, contracts, and events.
 
@@ -97,13 +104,14 @@ The `main.py` file is the entry point of the application. It initializes the app
 
 ### Environment Configuration
 
+The little script `init_config.py` will guide you through environment variable setting, database tables creation and
 The `.env` file contains environment variables for configuring the database connection.
 
 ---
 
 ## <p align="center">I - Setup windows</p>
 
-#### ( si [Git](https://github.com/git-for-windows/git/releases/download/v2.45.0.windows.1/Git-2.45.0-64-bit.exe) et [python 3.6+](https://www.python.org/ftp/python/3.12.3/python-3.12.3-amd64.exe) ne sont pas installés, commencez par l'annexe 1 !)
+#### ( if [Git](https://github.com/git-for-windows/git/releases/download/v2.45.0.windows.1/Git-2.45.0-64-bit.exe), [python 3.6+](https://www.python.org/ftp/python/3.12.3/python-3.12.3-amd64.exe) and [postgreSQL](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) are not installed, start with appendix 1 !)
 
 ---
 
@@ -143,11 +151,15 @@ then :
 
     pip install -r requirements.txt
 
-#### G - Program launch (the virtual environment must always have been activated before):
+#### G - Setup your environment, create your tables and populate your users (your admin manager at least) :
+
+    python init_config.py
+
+#### H - Program launch (the virtual environment must always have been activated before):
 
     python main.py
 
-#### H - Disable the virtual environment
+#### I - Disable the virtual environment
 
     deactivate
 
@@ -157,7 +169,7 @@ then :
 
 ## <p align="center">II - Setup Linux/Mac</p>
 
-#### ( if **[Git](https://sourceforge.net/projects/git-osx-installer/files/git-2.23.0-intel-universal-mavericks.dmg/download?use_mirror=autoselect)** and **[python](https://www.python.org/ftp/python/3.12.3/python-3.12.3-macos11.pkg)** are not installed, start with appendix 1 !)
+#### ( if **[Git](https://sourceforge.net/projects/git-osx-installer/files/git-2.23.0-intel-universal-mavericks.dmg/download?use_mirror=autoselect)**, **[python](https://www.python.org/ftp/python/3.12.3/python-3.12.3-macos11.pkg)** and **[postgreSQL](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)** are not installed, start with appendix 1 !)
 
 ---
 
@@ -199,6 +211,10 @@ Then :
 
     pip install -r requirements.txt
 
+#### G - Setup your environment, create your tables and populate your users (your admin manager at least) :
+
+    python3 init_config.py
+
 #### G - Program launch (the virtual environment must always have been activated before):
 
     python3 main.py
@@ -232,11 +248,15 @@ CRM/
 │ ├── user_view.py
 │ └── view.py
 ├── main.py
-├── .env
+├── init_config.py
+├── database.py
+├── populate_users.py
 ├── README.md
+├── requirements.txt
+├── .env
 etc...
 
-# <p align="center">Appendix 1 - Installation of Python & Git</p>
+# <p align="center">Appendix 1 - Python, Git and postgreSQL Installation</p>
 
 =======================================================================
 
@@ -247,6 +267,8 @@ Check by typing "cmd" in the start menu then "Git version" in the terminal
 
 install **[python](https://www.python.org/ftp/python/3.12.3/python-3.12.3-amd64.exe)** assuring you that **_"Add to PATH"_** is checked (leave the other default choices)
 Check by typing "cmd" in the start menu then "python -version" in the terminal
+
+install the latest (17.2+) version for your OS of **[postgreSQL](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)** and don't forget your database informations (name, password etc) you'll need them launching init_config.py
 
 ## for Mac/Linux :
 
@@ -262,3 +284,6 @@ Then verify again "git version" in the terminal
 
 **Python**
 install **[python](https://www.python.org/ftp/python/3.12.3/python-3.12.3-macos11.pkg)**
+
+**postgreSQL**
+install the latest (17.2+) version for your OS of **[postgreSQL](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)** and don't forget your database informations (name, password etc) you'll need them launching init_config.py
