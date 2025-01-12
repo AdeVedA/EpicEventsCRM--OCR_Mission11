@@ -226,26 +226,26 @@ Then :
 ## <p align="center">III - Directory Structure</p>
 
 ├── controllers/
-│ ├── client_ctrl.py
-│ ├── contract_ctrl.py
-│ ├── event_ctrl.py
-│ ├── login_ctrl.py
-│ ├── main_ctrl.py
-│ ├── user_ctrl.py
-│ └── utils_ctrl.py
+│              ├── client_ctrl.py
+│              ├── contract_ctrl.py
+│              ├── event_ctrl.py
+│              ├── login_ctrl.py
+│              ├── main_ctrl.py
+│              ├── user_ctrl.py
+│              └── utils_ctrl.py
 ├── models/
-│ └── models.py
+│         └── models.py
 ├── validator/
-│ └── inputs.py
+│            └── inputs.py
 ├── views/
-│ ├── client_view.py
-│ ├── contract_view.py
-│ ├── error_view.py
-│ ├── event_view.py
-│ ├── login_view.py
-│ ├── main_view.py
-│ ├── user_view.py
-│ └── view.py
+│        ├── client_view.py
+│        ├── contract_view.py
+│        ├── error_view.py
+│        ├── event_view.py
+│        ├── login_view.py
+│        ├── main_view.py
+│        ├── user_view.py
+│        └── view.py
 ├── main.py
 ├── init_config.py
 ├── database.py
