@@ -151,7 +151,7 @@ then :
 
     pip install -r requirements.txt
 
-#### G - Setup your environment, create your tables and populate your users (your admin manager at least) :
+#### G - Setup your environment (1.), create your tables (2.) and populate with your admin manager (3.) :
 
     python init_config.py
 
@@ -211,15 +211,15 @@ Then :
 
     pip install -r requirements.txt
 
-#### G - Setup your environment, create your tables and populate your users (your admin manager at least) :
+#### G - Setup your environment (1.), create your tables (2.) and populate with your admin manager (3.) :
 
     python3 init_config.py
 
-#### G - Program launch (the virtual environment must always have been activated before):
+#### H - Program launch (the virtual environment must always have been activated before):
 
     python3 main.py
 
-#### H - Disable the virtual environment
+#### I - Disable the virtual environment
 
     deactivate
 
@@ -254,6 +254,7 @@ CRM/
 ├── README.md
 ├── requirements.txt
 ├── .env
+
 etc...
 
 # <p align="center">Appendix 1 - Python, Git and postgreSQL Installation</p>
