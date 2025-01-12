@@ -225,6 +225,7 @@ Then :
 
 ## <p align="center">III - Directory Structure</p>
 
+```bash
 ├── controllers/
 │              ├── client_ctrl.py
 │              ├── contract_ctrl.py
@@ -253,8 +254,8 @@ Then :
 ├── README.md
 ├── requirements.txt
 ├── .env
-
 etc...
+```
 
 # <p align="center">Appendix 1 - Python, Git and postgreSQL Installation</p>
 
