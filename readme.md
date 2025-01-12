@@ -225,7 +225,6 @@ Then :
 
 ## <p align="center">III - Directory Structure</p>
 
-CRM/
 ├── controllers/
 │ ├── client_ctrl.py
 │ ├── contract_ctrl.py
