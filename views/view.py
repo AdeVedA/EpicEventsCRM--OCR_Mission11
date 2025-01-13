@@ -188,7 +188,7 @@ class View:
                     View.erase_line(2)
                     return
                 case "no_client":
-                    View.space(17)
+                    View.space(10)
                     View.prt_warn_yred("❌ No clients. Please first register a client ")
                     View.space(17)
                     View.press_key()

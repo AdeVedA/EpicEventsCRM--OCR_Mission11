@@ -115,6 +115,8 @@ class EventController:
     def associate_event_support(self, session=None):
         """associate a support collaborator to an event (manager's functionality)"""
         events_ids = self.list_events(list_returns=True)
+        if not events_ids:
+            return
         event_id = self.view.get_event_id(events_ids, action="to associate a support to ")
         # try avant requête base... except
         event = session.query(Event).filter_by(id=event_id).first()
@@ -137,6 +139,8 @@ class EventController:
     def update_own_events(self, session=None):
         """Update a support's assigned own event."""
         events_ids = self.list_events(list_returns=True)
+        if not events_ids:
+            return
         event_id = self.view.get_event_id(events_ids, action="to update ")
         event = session.query(Event).filter_by(id=event_id).first()
         contracts = ContractController(self.user).get_signed_contracts()

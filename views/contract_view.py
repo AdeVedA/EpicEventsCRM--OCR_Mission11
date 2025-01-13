@@ -43,14 +43,15 @@ class ContractView(View):
         View.space(17)
         View.prt_info_blue("Please enter contract informations")
         # Show compact lists for clients and commercials
-        clients_list = View.show_compact_list("Clients to choose from ", clients, "full_name")
-        client_id = Input.integer("\nSelect Client ID from the list: \x1B[33m", clients_list)
+        clients_list = View.show_compact_list("Here are the registered clients : ", clients, "full_name")
+        client_id = Input.integer("\nSelect a Client ID from the list: \x1B[33m", clients_list)
 
-        commercials_list = View.show_compact_list("Commercials", commercials, "username")
+        commercials_list = View.show_compact_list("Here are the commercials", commercials, "username")
         commercial_contact_id = Input.integer(
-            "\nSelect Commercial Contact ID from the list: \x1B[33m", commercials_list
+            "\nSelect a Commercial Contact ID from the list: \x1B[33m", commercials_list
         )
 
+        # total_amount has to be a positive number
         is_valid = False
         while not is_valid:
             total_amount = Input.float("Total Amount: \x1B[33m")
@@ -58,7 +59,7 @@ class ContractView(View):
                 ErrorView.alert("the bill total amount can't be negative")
                 continue
             is_valid = True
-
+        # remaining_amount has to be lower than total_amount
         remaining_amount = Input.float("Remaining Amount: \x1B[33m", limit=total_amount)
 
         status = Input.signed_contract("Status (signed or unsigned): \x1B[33m")

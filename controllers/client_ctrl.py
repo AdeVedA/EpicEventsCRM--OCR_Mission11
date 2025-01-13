@@ -62,14 +62,18 @@ class ClientController:
     def update_client(self, session=None):
         """Update a client."""
         clients_ids = self.list_clients(list_returns=True)
+        if not clients_ids:
+            return
         client_id = self.view.get_client_id(clients_ids, action="to update ")
         client = session.query(Client).filter_by(id=client_id).first()
-        commercials = UserController(self.user).get_commercials()
-        if client.commercial_contact_id != self.user.id:
-            View.input_return_prints("forbidden")
-            self.update_client()
         if not client:
             View.input_return_prints("no_client")
+            return
+        commercials = UserController(self.user).get_commercials()
+        if not commercials:
+            return
+        if client.commercial_contact_id != self.user.id:
+            View.input_return_prints("forbidden")
             return
         updated_data = self.view.get_client_update_data(client, commercials)
         if updated_data:

@@ -60,6 +60,11 @@ def db_populate():
 
     populate_manager.populate_users(user_to_create)
 
+    View.space(17)
+    View.prt_info_blue(f"The manager {manager_username} has been created")
+    View.space(17)
+    View.press_key()
+
 
 def db_tables_creation():
     """2. database tables creation"""
@@ -76,6 +81,10 @@ def db_tables_creation():
     import database
 
     database.init_db()
+    View.space(17)
+    View.prt_info_blue("The tables have properly been created")
+    View.space(17)
+    View.press_key()
 
 
 def config():
@@ -107,6 +116,11 @@ def config():
 
     with open(".env", "w") as file:
         file.write(data)
+
+    View.space(17)
+    View.prt_info_blue(f"The database {name} has been setup as your environment")
+    View.space(17)
+    View.press_key()
 
 
 if __name__ == "__main__":

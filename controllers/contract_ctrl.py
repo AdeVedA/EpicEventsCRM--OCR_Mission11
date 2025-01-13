@@ -56,7 +56,13 @@ class ContractController:
     def create_contract(self, session=None):
         """Create a new contract in the database."""
         clients = ClientController(self.user).get_clients()
+        if not clients:
+            View.input_return_prints("no_client")
+            return
         commercials = UserController(self.user).get_commercials()
+        if not commercials:
+            View.input_return_prints("no_user")
+            return
         data = self.view.get_contract_creation_data(clients, commercials)
         contract = Contract(
             client_id=data["client_id"],
@@ -84,6 +90,8 @@ class ContractController:
     def update_contract(self, own=False, session=None):
         """Update a contract."""
         contracts_ids = self.list_contracts(list_returns=True)
+        if not contracts_ids:
+            return
         contract_id = self.view.get_contract_id(contracts_ids, action="to update ")
         clients = ClientController(self.user).get_clients()
         commercials = UserController(self.user).get_commercials()
