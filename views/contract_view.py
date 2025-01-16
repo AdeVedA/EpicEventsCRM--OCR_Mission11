@@ -71,7 +71,7 @@ class ContractView(View):
             "status": status,
         }
 
-    def show_contracts(self, contracts, list_returns=None):
+    def show_contracts(self, contracts, list_returns=False):
         """displays contracts table (and return list of contracts if list_returns=True)"""
         if not contracts:
             View.input_return_prints("no_contract")

@@ -45,7 +45,7 @@ class ClientController:
         View.input_return_prints("client_saved", client.full_name)
 
     @with_session
-    def list_clients(self, list_returns=None, session=None):
+    def list_clients(self, list_returns=False, session=None):
         """List all clients."""
         clients = session.query(Client).all()
         if list_returns:

@@ -20,18 +20,6 @@ class LoginView:
         return choice
 
     @staticmethod
-    def register():
-        """Displays question and validates field input with regex string_name"""
-        username = Input.string_name("Enter username : ")
-        password = getpass.getpass("Enter password : ")
-        confirm_password = getpass.getpass("Confirm password : ")
-        if password != confirm_password:
-            View.input_return_prints("Passwords_not_ match")
-            return None
-        else:
-            return username, password
-
-    @staticmethod
     def get_login_data():
         """Recovers user connection information."""
         username = Input.string_name("Enter your username : ")

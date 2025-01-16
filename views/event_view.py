@@ -54,7 +54,7 @@ class EventView(View):
         choice = input()
         return choice
 
-    def show_events(self, events, list_returns=None):
+    def show_events(self, events, list_returns=False):
         """displays events table (and return list of events if list_returns=True)"""
         if not events:
             View.input_return_prints("no_event")

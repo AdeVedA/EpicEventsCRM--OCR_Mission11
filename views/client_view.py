@@ -34,7 +34,7 @@ class ClientView(View):
             "company_name": Input.company_name("Company name : \x1B[33m"),
         }
 
-    def show_clients(self, clients, list_returns=None):
+    def show_clients(self, clients, list_returns=False):
         """displays a table of clients
         returns a list of clients_ids if list_returns=True"""
         if not clients:

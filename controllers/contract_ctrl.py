@@ -78,7 +78,7 @@ class ContractController:
         View.input_return_prints("contract_saved", contract.id, contract.client.full_name)
 
     @with_session
-    def list_contracts(self, list_returns=None, session=None):
+    def list_contracts(self, list_returns=False, session=None):
         """List all contracts."""
         contracts = session.query(Contract).all()
         if list_returns:
@@ -110,13 +110,13 @@ class ContractController:
         View.input_return_prints("contract_saved", contract.id, contract.client.full_name)
 
     @with_session
-    def list_unsigned_contracts(self, list_returns=None, session=None):
+    def list_unsigned_contracts(self, list_returns=False, session=None):
         """List all unsigned contracts."""
         unsigned_contracts = session.query(Contract).filter(Contract.status == "unsigned").all()
         self.view.show_contracts(unsigned_contracts, list_returns)
 
     @with_session
-    def list_unpaid_contracts(self, list_returns=None, session=None):
+    def list_unpaid_contracts(self, list_returns=False, session=None):
         """List all contracts."""
         contracts = session.query(Contract).all()
         for contract in contracts:

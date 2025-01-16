@@ -91,7 +91,7 @@ class EventController:
             View.input_return_prints("event_saved", event.id, event.title)
 
     @with_session
-    def list_events(self, list_returns=None, session=None):
+    def list_events(self, list_returns=False, session=None):
         """List all events."""
         events = session.query(Event).all()
         if list_returns:
