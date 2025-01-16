@@ -25,7 +25,7 @@ Session = sessionmaker(bind=engine)
 @pytest.fixture(scope="session")
 def db_engine():
     """Initialisation de la base de données pour les tests."""
-    Base.metadata.create_all(engine)  # Créer les tables une seule fois
+    Base.metadata.create_all(engine)  # Créer les tables
     yield engine
     Base.metadata.drop_all(engine)  # Supprimer les tables après les tests
 
@@ -52,6 +52,9 @@ def setup_users(db_session):
     # Supprimer les utilisateurs existants
     db_session.query(User).delete()
 
+    # Réinitialiser la séquence d'ID
+    # db_session.execute("ALTER SEQUENCE users_id_seq RESTART WITH 1;")
+
     # Créer de nouveaux utilisateurs
     manager = User(username="testmanager", password=User.hash_password("securepassword"), role="MANAGEMENT")
     commercial = User(username="testcommercial", password=User.hash_password("securepassword"), role="COMMERCIAL")
@@ -63,17 +66,20 @@ def setup_users(db_session):
 
     # Validation
     users = db_session.query(User).all()
-    print(f"Utilisateurs créés : {[user.username for user in users]}")
+    print(f"Utilisateurs créés : {[user.username for user in users]} , ids {[user.id for user in users]}")
     return users
 
 
 @pytest.fixture(scope="function")
-def setup_clients(db_session):
+def setup_clients(db_session, setup_users):
     """Créer des clients pour les tests."""
-    from models.models import Client
+    from models.models import Client, User
 
     # Supprimer les clients existants
     db_session.query(Client).delete()
+
+    # Récupérer l'ID du commercial de manière dynamique
+    commercial = db_session.query(User).filter_by(role="COMMERCIAL").first()
 
     # Créer de nouveaux clients
     client1 = Client(
@@ -81,14 +87,14 @@ def setup_clients(db_session):
         email="clienta@test.com",
         phone="123456789",
         company_name="la boite A",
-        commercial_contact_id=2,
+        commercial_contact_id=commercial.id,
     )
     client2 = Client(
         full_name="Client B",
         email="clientb@test.com",
         phone="987654321",
         company_name="la boite B",
-        commercial_contact_id=2,
+        commercial_contact_id=commercial.id,
     )
 
     # Ajouter et valider les clients
@@ -99,16 +105,16 @@ def setup_clients(db_session):
 
 
 @pytest.fixture(scope="function")
-def setup_contracts(db_session):
+def setup_contracts(db_session, setup_clients, setup_users):
     """Créer des contrats pour les tests."""
-    from models.models import Contract, User
+    from models.models import Client, Contract, User
 
     # Supprimer les contrats existants
     db_session.query(Contract).delete()
 
     # Récupérer les utilisateurs et les clients
-    commercial = next(user for user in db_session.query(User).all() if user.role == "COMMERCIAL")
-    client = setup_clients[0]
+    commercial = db_session.query(User).filter_by(role="COMMERCIAL").first()
+    client = db_session.query(Client).first()
 
     # Créer des contrats
     contract1 = Contract(
@@ -131,3 +137,46 @@ def setup_contracts(db_session):
     db_session.commit()
 
     return db_session.query(Contract).all()
+
+
+@pytest.fixture(scope="function")
+def setup_events(db_session, setup_contracts, setup_users):
+    """Créer des événements pour les tests."""
+    from datetime import datetime
+
+    from models.models import Event, User
+
+    # Supprimer les événements existants
+    db_session.query(Event).delete()
+
+    # Récupérer le premier contrat et le support
+    contract = setup_contracts[0]
+    support = db_session.query(User).filter_by(role="SUPPORT").first()
+
+    # Créer des événements
+    event1 = Event(
+        title="Test Event 1",
+        contract_id=contract.id,
+        start_date=datetime(2024, 6, 1, 14, 0),
+        end_date=datetime(2024, 6, 1, 17, 0),
+        location="Paris",
+        attendees=50,
+        notes="Test notes 1",
+        support_contact_id=support.id,
+    )
+
+    event2 = Event(
+        title="Test Event 2",
+        contract_id=contract.id,
+        start_date=datetime(2024, 7, 1, 10, 0),
+        end_date=datetime(2024, 7, 1, 16, 0),
+        location="Lyon",
+        attendees=30,
+        notes="Test notes 2",
+    )
+
+    # Ajouter et valider les événements
+    db_session.add_all([event1, event2])
+    db_session.commit()
+
+    return db_session.query(Event).all()

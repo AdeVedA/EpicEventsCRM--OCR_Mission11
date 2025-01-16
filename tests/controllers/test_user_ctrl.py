@@ -5,7 +5,7 @@ from models.models import User
 
 
 @pytest.fixture
-def user_controller(db_session, mocker):
+def user_controller(db_session, setup_users, mocker):
     """Fixture pour initialiser un UserController."""
     print("Requêter testmanager user...")
     manager_user = db_session.query(User).filter_by(username="testmanager").first()
@@ -18,7 +18,7 @@ def user_controller(db_session, mocker):
 
 
 def test_list_collaborators(db_session, setup_users, user_controller, mocker):
-    """Test listing des collaborators."""
+    """Teste le listing des collaborators."""
     # Vérifier les utilisateurs présents dans la base
     users = db_session.query(User).all()
     assert len(users) == 3, f"Expected 3 users, found {len(users)}: {[user.username for user in users]}"
@@ -38,7 +38,7 @@ def test_list_collaborators(db_session, setup_users, user_controller, mocker):
 
 
 def test_list_collaborators_with_update(db_session, setup_users, user_controller, mocker):
-    """Test listing collaborators avec update=True."""
+    """Teste le listing des collaborators avec update=True."""
     users = db_session.query(User).all()
 
     mock_show_collaborators = mocker.patch.object(
@@ -56,7 +56,8 @@ def test_list_collaborators_with_update(db_session, setup_users, user_controller
 
 
 def test_create_collaborator(db_session, user_controller, mocker):
-    """Test créer un collaborator."""
+    """Test la création d'un collaborator."""
+    mocker.patch("views.view.View.input_return_prints")
     mocker.patch.object(
         user_controller.view,
         "get_collaborator_creation_data",
@@ -69,7 +70,8 @@ def test_create_collaborator(db_session, user_controller, mocker):
 
 
 def test_update_user(db_session, setup_users, user_controller, mocker):
-    """Test updating a user's details."""
+    """Teste la mise à jour des détails d'un utilisateur."""
+    mocker.patch("views.view.View.input_return_prints")
     user = db_session.query(User).filter_by(username="testcommercial").first()
     if not user:
         raise RuntimeError("User testcommercial not found. setup_users a un soucis ?")
@@ -89,7 +91,8 @@ def test_update_user(db_session, setup_users, user_controller, mocker):
 
 
 def test_delete_user(db_session, setup_users, user_controller, mocker):
-    """Test deleting a user."""
+    """Teste la suppression d'un utilisateur."""
+    mocker.patch("views.view.View.input_return_prints")
     user = db_session.query(User).filter_by(username="testsupport").first()
     if not user:
         raise RuntimeError("User testsupport not found. setup_users a un soucis ?")
@@ -104,7 +107,7 @@ def test_delete_user(db_session, setup_users, user_controller, mocker):
 
 
 def test_get_users(db_session, setup_users, user_controller):
-    """Test récupérer tous les users."""
+    """Teste la récupération de tous les users."""
     users = user_controller.get_users(session=db_session)
     assert len(users) == 3
     usernames = [user.username for user in users]
@@ -114,14 +117,14 @@ def test_get_users(db_session, setup_users, user_controller):
 
 
 def test_get_commercials(db_session, setup_users, user_controller):
-    """Test récupérer seulement les commercials."""
+    """Teste la récupération des commerciaux (seulement eux)."""
     commercials = user_controller.get_commercials(session=db_session)
     assert len(commercials) == 1
     assert commercials[0].username == "testcommercial"
 
 
 def test_get_supports(db_session, setup_users):
-    """Test récupérer seulement les supports."""
+    """Teste la récupération des supports (seulement eux)."""
     supports = UserController.get_supports(session=db_session)
     assert len(supports) == 1
     assert supports[0].username == "testsupport"

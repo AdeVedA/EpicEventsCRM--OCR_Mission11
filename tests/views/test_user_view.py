@@ -11,21 +11,21 @@ def user_view(mocker):
 
 
 def test_managers_collaborator_show(user_view, mocker):
-    """Test pour la méthode managers_collaborator_show."""
+    """Teste la méthode managers_collaborator_show."""
     mocker.patch("builtins.input", return_value="1")
     result = user_view.managers_collaborator_show()
     assert result == "1", "La méthode n'a pas retourné le choix utilisateur."
 
 
 def test_show_collaborators_empty(user_view, mocker):
-    """Test pour show_collaborators avec une liste vide."""
+    """Teste show_collaborators avec une liste vide."""
     mock_input_return_prints = mocker.patch("views.view.View.input_return_prints")
     user_view.show_collaborators([], update=False)
     mock_input_return_prints.assert_called_once_with("no_user")
 
 
 def test_show_collaborators_with_data(user_view, mocker):
-    """Test pour show_collaborators avec des collaborateurs."""
+    """Teste show_collaborators avec des collaborateurs."""
     collaborators = [
         mocker.Mock(id=1, username="user1", role=mocker.Mock(value="COMMERCIAL")),
         mocker.Mock(id=2, username="user2", role=mocker.Mock(value="SUPPORT")),
@@ -50,7 +50,7 @@ def test_show_collaborators_with_data(user_view, mocker):
 
 
 def test_show_collaborators_with_update(user_view, mocker):
-    """Test pour show_collaborators avec update=True."""
+    """Teste show_collaborators avec update=True."""
     collaborators = [
         mocker.Mock(id=1, username="user1", role=mocker.Mock(value="COMMERCIAL")),
         mocker.Mock(id=2, username="user2", role=mocker.Mock(value="SUPPORT")),
@@ -65,7 +65,7 @@ def test_show_collaborators_with_update(user_view, mocker):
 
 
 def test_get_collaborator_creation_data(user_view, mocker):
-    """Test pour get_collaborator_creation_data."""
+    """Teste get_collaborator_creation_data."""
     mock_input_string_name = mocker.patch("validator.inputs.Input.string_name", return_value="newuser")
     mock_input_role = mocker.patch("validator.inputs.Input.role", return_value="COMMERCIAL")
     mock_getpass = mocker.patch("getpass.getpass", side_effect=["password", "password"])
@@ -83,7 +83,7 @@ def test_get_collaborator_creation_data(user_view, mocker):
 
 
 def test_get_user_id(user_view, mocker):
-    """Test pour get_user_id."""
+    """Teste get_user_id."""
     mock_input_integer = mocker.patch("validator.inputs.Input.integer", return_value=1)
     result = user_view.get_user_id([1, 2, 3], action="update")
     assert result == 1
@@ -91,7 +91,7 @@ def test_get_user_id(user_view, mocker):
 
 
 def test_get_user_update_data(user_view, mocker):
-    """Test pour get_user_update_data."""
+    """Teste get_user_update_data."""
     mock_user = mocker.Mock(id=1, username="testuser", role=mocker.Mock(value="COMMERCIAL"))
     mock_input_string_name = mocker.patch("validator.inputs.Input.string_name", return_value="updateduser")
     mock_input_role = mocker.patch("validator.inputs.Input.role", return_value="SUPPORT")
@@ -110,7 +110,7 @@ def test_get_user_update_data(user_view, mocker):
 
 
 def test_confirm_user_delete(user_view, mocker):
-    """Test pour confirm_user_delete."""
+    """Teste confirm_user_delete."""
     mock_collab = mocker.Mock(id=1, username="testuser", role=mocker.Mock(value="COMMERCIAL"))
     mock_input = mocker.patch("builtins.input", return_value="y")
 
