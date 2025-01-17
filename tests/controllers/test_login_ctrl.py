@@ -13,9 +13,8 @@ def mock_login_view(mocker):
 
 
 @pytest.fixture
-def mock_view(mocker):
+def mock_view(mocker, ret_prt_mock):
     """Mock des méthodes de View."""
-    mocker.patch("views.view.View.input_return_prints")
     mocker.patch("views.view.View.prt_red")
     mocker.patch("views.view.View.press_key")
 

@@ -15,9 +15,8 @@ def client_controller(db_session, setup_users):
     return ClientController(commercial_user)
 
 
-def test_create_client(client_controller, mocker, db_session):
+def test_create_client(client_controller, mocker, db_session, ret_prt_mock):
     """Teste la méthode de création d'un client create_client."""
-    mocker.patch("views.view.View.input_return_prints")
     # Mock des données de la vue
     mock_view_data = {
         "full_name": "Arthur Saizmat",
@@ -61,9 +60,8 @@ def test_list_clients(client_controller, mocker, db_session):
     mock_show_clients.assert_called_once_with([client])
 
 
-def test_update_client(db_session, setup_users, client_controller, mocker):
+def test_update_client(db_session, setup_users, client_controller, mocker, ret_prt_mock):
     """Teste la méthode update_client."""
-    mocker.patch("views.view.View.input_return_prints")
     # Mocker la Session pour qu'elle retourne la db_session de test
     session_mock = mocker.patch("controllers.utils_ctrl.Session")
     session_mock.return_value.__enter__.return_value = db_session

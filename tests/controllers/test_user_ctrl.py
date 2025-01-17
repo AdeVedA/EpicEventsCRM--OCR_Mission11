@@ -55,9 +55,8 @@ def test_list_collaborators_with_update(db_session, setup_users, user_controller
     assert result == [user.id for user in users]
 
 
-def test_create_collaborator(db_session, user_controller, mocker):
+def test_create_collaborator(db_session, user_controller, mocker, ret_prt_mock):
     """Test la création d'un collaborator."""
-    mocker.patch("views.view.View.input_return_prints")
     mocker.patch.object(
         user_controller.view,
         "get_collaborator_creation_data",
@@ -69,9 +68,8 @@ def test_create_collaborator(db_session, user_controller, mocker):
     assert new_user.role.value == "COMMERCIAL"
 
 
-def test_update_user(db_session, setup_users, user_controller, mocker):
+def test_update_user(db_session, setup_users, user_controller, mocker, ret_prt_mock):
     """Teste la mise à jour des détails d'un utilisateur."""
-    mocker.patch("views.view.View.input_return_prints")
     user = db_session.query(User).filter_by(username="testcommercial").first()
     if not user:
         raise RuntimeError("User testcommercial not found. setup_users a un soucis ?")
@@ -90,9 +88,8 @@ def test_update_user(db_session, setup_users, user_controller, mocker):
     assert updated_user.check_password("updatedpassword")
 
 
-def test_delete_user(db_session, setup_users, user_controller, mocker):
+def test_delete_user(db_session, setup_users, user_controller, mocker, ret_prt_mock):
     """Teste la suppression d'un utilisateur."""
-    mocker.patch("views.view.View.input_return_prints")
     user = db_session.query(User).filter_by(username="testsupport").first()
     if not user:
         raise RuntimeError("User testsupport not found. setup_users a un soucis ?")

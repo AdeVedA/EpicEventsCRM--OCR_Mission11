@@ -5,12 +5,6 @@ from views.event_view import EventView
 
 
 @pytest.fixture
-def mock_input(mocker):
-    """Mocke la fonction `input`."""
-    return mocker.patch("builtins.input")
-
-
-@pytest.fixture
 def commercial_user(setup_users, db_session):
     """Crée un utilisateur avec le rôle COMMERCIAL."""
     commercial = db_session.query(User).filter_by(role="COMMERCIAL").first()
@@ -48,9 +42,8 @@ def test_show_events(event_view, setup_events):
     assert len(events_ids) > 0
 
 
-def test_show_events_empty(event_view, mocker):
+def test_show_events_empty(event_view, mocker, ret_prt_mock):
     """Teste que `show_events` retourne None si la liste d'événements est vide."""
-    mocker.patch("views.view.View.input_return_prints")
     result = event_view.show_events([], list_returns=True)
     assert result is None
 

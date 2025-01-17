@@ -35,9 +35,8 @@ def setup_test_contract(db_session, setup_users, setup_clients):
     return contract
 
 
-def test_create_contract(db_session, contract_controller, setup_clients, setup_users, mocker):
+def test_create_contract(db_session, contract_controller, setup_clients, setup_users, mocker, ret_prt_mock):
     """Teste la création d'un contrat."""
-    mocker.patch("views.view.View.input_return_prints")
     # Récupérer les objets par leurs attributs uniques
     commercial = db_session.query(User).filter_by(role="COMMERCIAL").first()
     client = db_session.query(Client).filter_by(full_name="Client A").first()
@@ -95,10 +94,9 @@ def test_list_contracts_with_ids(db_session, contract_controller, setup_test_con
     assert len(contract_ids) > 0
 
 
-def test_update_contract(db_session, contract_controller, setup_test_contract, mocker):
+def test_update_contract(db_session, contract_controller, setup_test_contract, mocker, ret_prt_mock):
     """Teste la mise à jour d'un contrat."""
     # Mock des méthodes
-    mocker.patch("views.view.View.input_return_prints")
     mocker.patch.object(contract_controller, "list_contracts", return_value=[setup_test_contract.id])
     mocker.patch.object(ContractView, "get_contract_id", return_value=setup_test_contract.id)
     mocker.patch.object(ClientController, "get_clients", return_value=[Client(id=1)])
@@ -117,10 +115,9 @@ def test_update_contract(db_session, contract_controller, setup_test_contract, m
     assert updated_contract.status == "signed"
 
 
-def test_list_unsigned_contracts(db_session, contract_controller, setup_test_contract, mocker):
+def test_list_unsigned_contracts(db_session, contract_controller, setup_test_contract, mocker, ret_prt_mock):
     """Teste la liste des contrats non signés."""
     # Appel de la méthode
-    mocker.patch("views.view.View.input_return_prints")
     contract_controller.list_unsigned_contracts(session=db_session)
 
     # Vérification que la méthode s'exécute sans erreur
@@ -129,9 +126,8 @@ def test_list_unsigned_contracts(db_session, contract_controller, setup_test_con
     assert all(contract.status == "unsigned" for contract in unsigned_contracts)
 
 
-def test_list_unpaid_contracts(db_session, contract_controller, setup_test_contract, mocker):
+def test_list_unpaid_contracts(db_session, contract_controller, setup_test_contract, mocker, ret_prt_mock):
     """Teste la liste des contrats impayés."""
-    mocker.patch("views.view.View.input_return_prints")
     # Ajout d'un contrat payé pour le test
     paid_contract = Contract(
         client_id=setup_test_contract.client_id,
@@ -152,9 +148,8 @@ def test_list_unpaid_contracts(db_session, contract_controller, setup_test_contr
     assert all(contract.remaining_amount > 0 for contract in unpaid_contracts)
 
 
-def test_list_signed_contracts(db_session, contract_controller, setup_test_contract, mocker):
+def test_list_signed_contracts(db_session, contract_controller, setup_test_contract, mocker, ret_prt_mock):
     """Teste la liste des contrats signés."""
-    mocker.patch("views.view.View.input_return_prints")
     # Modifier le contrat de test pour qu'il soit signé
     setup_test_contract.status = "signed"
     db_session.commit()

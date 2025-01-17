@@ -43,9 +43,8 @@ def test_list_my_events(db_session, setup_events, setup_users):
     assert len(events) == 1
 
 
-def test_commercials_event_menu(mocker, setup_users):
+def test_commercials_event_menu(mocker, setup_users, ret_prt_mock):
     """Test le menu des événements pour les commerciaux."""
-    mocker.patch("views.view.View.input_return_prints")
     commercial = setup_users[1]  # Commercial user
     controller = EventController(commercial)
 
@@ -83,9 +82,8 @@ def test_commercials_event_menu(mocker, setup_users):
     assert mock_create.call_count == 0
 
 
-def test_create_event(db_session, setup_contracts, setup_clients, setup_users, mocker):
+def test_create_event(db_session, setup_contracts, setup_clients, setup_users, mocker, ret_prt_mock):
     """Test la création d'un événement par un commercial."""
-    mocker.patch("views.view.View.input_return_prints")
     # Récupérer un commercial et un contrat signé
     commercial = db_session.query(User).filter_by(role="COMMERCIAL").first()
     signed_contract = next(contract for contract in setup_contracts if contract.status == "signed")
@@ -125,9 +123,8 @@ def test_create_event(db_session, setup_contracts, setup_clients, setup_users, m
     assert created_event.notes == event_data["notes"]
 
 
-def test_managers_event_menu(mocker, setup_users):
+def test_managers_event_menu(mocker, setup_users, ret_prt_mock):
     """Test le menu des événements pour les managers."""
-    mocker.patch("views.view.View.input_return_prints")
     manager = setup_users[0]  # Manager user
     controller = EventController(manager)
 
@@ -165,9 +162,8 @@ def test_managers_event_menu(mocker, setup_users):
     assert not mock_associate.called
 
 
-def test_supports_event_menu(mocker, setup_users):
+def test_supports_event_menu(mocker, setup_users, ret_prt_mock):
     """Test le menu des événements pour les supports."""
-    mocker.patch("views.view.View.input_return_prints")
     support = setup_users[2]  # Support user
     controller = EventController(support)
 
@@ -205,9 +201,8 @@ def test_supports_event_menu(mocker, setup_users):
     assert not mock_update.called
 
 
-def test_associate_event_support(db_session, setup_events, setup_users, mocker):
+def test_associate_event_support(db_session, setup_events, setup_users, mocker, ret_prt_mock):
     """Test l'association d'un support à un événement."""
-    mocker.patch("views.view.View.input_return_prints")
     manager = db_session.query(User).filter_by(role="MANAGEMENT").first()
     support = db_session.query(User).filter_by(role="SUPPORT").first()
     event = setup_events[1]  # Événement sans support
@@ -227,9 +222,8 @@ def test_associate_event_support(db_session, setup_events, setup_users, mocker):
     assert updated_event.support_contact_id == support.id
 
 
-def test_update_own_events(db_session, setup_events, setup_users, setup_contracts, mocker):
+def test_update_own_events(db_session, setup_events, setup_users, setup_contracts, mocker, ret_prt_mock):
     """Test la mise à jour d'un événement par un support."""
-    mocker.patch("views.view.View.input_return_prints")
     support = db_session.query(User).filter_by(role="SUPPORT").first()
     event = next(event for event in setup_events if event.support_contact_id == support.id)
     controller = EventController(support)
@@ -258,9 +252,8 @@ def test_update_own_events(db_session, setup_events, setup_users, setup_contract
     assert updated_event.notes == updated_data["notes"]
 
 
-def test_update_own_events_forbidden(db_session, setup_events, setup_users, mocker):
+def test_update_own_events_forbidden(db_session, setup_events, setup_users, mocker, ret_prt_mock):
     """Test la tentative de mise à jour d'un événement non assigné au support."""
-    mocker.patch("views.view.View.input_return_prints")
     support = db_session.query(User).filter_by(role="SUPPORT").first()
     event = next(event for event in setup_events if event.support_contact_id != support.id)
     controller = EventController(support)

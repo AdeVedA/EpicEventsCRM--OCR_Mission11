@@ -180,3 +180,15 @@ def setup_events(db_session, setup_contracts, setup_users):
     db_session.commit()
 
     return db_session.query(Event).all()
+
+
+@pytest.fixture(scope="function")
+def ret_prt_mock(mocker):
+    "mocker les notifications en retours d'entrée/modification utilisateur"
+    return mocker.patch("views.view.View.input_return_prints")
+
+
+@pytest.fixture
+def mock_input(mocker):
+    """Mocke la fonction `input`."""
+    return mocker.patch("builtins.input")
