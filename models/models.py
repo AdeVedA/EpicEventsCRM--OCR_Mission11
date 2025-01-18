@@ -35,11 +35,23 @@ class User(Base):
 
     @staticmethod
     def hash_password(password: str) -> str:
-        """Salt and hash the plain text password."""
+        """
+        Salt and hash the plain text password.
+        Args:
+            password (str): Plain text password to hash.
+        Returns:
+            str: Hashed password.
+        """
         return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt(rounds=12)).decode("utf-8")
 
     def check_password(self, plain_password: str) -> bool:
-        """Check if the hashed password matches the plain password."""
+        """
+        Check if the hashed password matches the plain password.
+        Args:
+            plain_password (str): Plain text password to verify.
+        Returns:
+            bool: True if the password matches, False otherwise.
+        """
         return bcrypt.checkpw(plain_password.encode("utf-8"), self.password.encode("utf-8"))
 
 
@@ -105,30 +117,49 @@ class Event(Base):
     contract = relationship("Contract", back_populates="events")
     support_contact = relationship("User", back_populates="events_as_support")
 
-    # Getter for start_date to display the date as "17 Feb 2011 @ 5AM"
     @property
     def start_date(self):
+        """
+        Getter for start_date to display the date as "17 Feb 2011 @ 5AM".
+        Returns:
+            str: The start date formatted as "DD Mon YYYY @ HHAM/PM", or None if not set.
+        """
         return self._start_date.strftime("%d %b %Y @ %I%p") if self._start_date else None
 
-    # Setter for start_date to convert "17 Feb 2011 @ 5AM" to normal datetime 2011/02/17 05:00:00
     @start_date.setter
     def start_date(self, value):
+        """
+        Setter for start_date to convert "17 Feb 2011 @ 5AM" to normal datetime 2011/02/17 05:00:00
+        Args:
+            value (str | datetime): The start date to set.
+            If a string, it must be formatted as "DD Mon YYYY @ HHAM/PM".
+        """
         if isinstance(value, str):
-            # Conversion "string" -> datetime
+            # Conversion "string" -> objet datetime (méthode strptime)
             self._start_date = datetime.strptime(value, "%d %b %Y @ %I%p")
         elif isinstance(value, datetime):
             self._start_date = value
         else:
             raise ValueError("start_date must be a datetime object or a formatted string")
 
-    # Getter for end_date (see start_date)
     @property
     def end_date(self):
+        """
+        Get the end date as a formatted string.
+        Returns:
+            str: The end date formatted as "DD Mon YYYY @ HHAM/PM", or None if not set.
+        """
+        # conversion objet datetime -> "string" (méthode strftime)
         return self._end_date.strftime("%d %b %Y @ %I%p") if self._end_date else None
 
-    # Setter for end_date (see start_date)
     @end_date.setter
     def end_date(self, value):
+        """
+        Set the end date from a formatted string or a datetime object.
+        Args:
+            value (str | datetime): The end date to set.
+            If a string, it must be formatted as "DD Mon YYYY @ HHAM/PM".
+        """
         if isinstance(value, str):
             # Conversion "string" -> datetime
             self._end_date = datetime.strptime(value, "%d %b %Y @ %I%p")
