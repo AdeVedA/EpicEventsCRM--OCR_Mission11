@@ -32,7 +32,7 @@ class LoginController:
             username, password = LoginView.get_login_data()
             # Authenticate the user
             try:
-                user = AuthController.login(username=username, password=password)
+                user = AuthController.authenticate(username=username, password=password)
                 if user:
                     MainController(user).main()
             except ValueError as e:
@@ -48,7 +48,7 @@ class AuthController:
 
     @staticmethod
     @with_session
-    def login(username, password, session=None):
+    def authenticate(username, password, session=None):
         """Handles user login logic by validating username and password
         Returns:
             User: The authenticated user object, or None if authentication fails.
