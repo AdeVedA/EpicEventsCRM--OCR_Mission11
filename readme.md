@@ -4,9 +4,9 @@
 <p align="center">
     <br/>
     <div style="display: flex; gap: 5px;"> 
-        <img alt="welcome screen preview" src="images/0_welcome_screen.png" width="300">
+        <img alt="welcome screen preview" src="images/0_welcome_screen.png" width="290">
         <img alt="login screen preview" src="images/1_login_menu.png" width="290">
-        <img alt="managers menu preview" src="images/2_managers_menu.png" width="250">
+        <img alt="managers menu preview" src="images/2_managers_menu.png" width="230">
     </div>
     <p align="center">
         <img alt="clients table preview" src="images/3_clients_table.png" width="525">
