@@ -4,7 +4,10 @@
 <p align="center">
   <br/>
   <picture> 
-    
+    <img alt="welcome screen" src="images/0_welcome_screen.png" width="211">
+    <img alt="login screen" src="images/1_login_menu.png" width="202">
+    <img alt="clients table" src="images/3_clients_table.png" width="310">
+    <img alt="update contract" src="images/4_update_contract.png" width="312">
   </picture>
   <br/>
   <br/>
