@@ -3,13 +3,14 @@
 <p align="center">=========================================================================</p>
 <p align="center">
     <br/>
-    <div style="display: flex; gap: 1px;"> 
-        <img alt="welcome screen" src="images/0_welcome_screen.png" width="231">
-        <img alt="login screen" src="images/1_login_menu.png" width="222">
-        <img alt="clients table" src="images/3_clients_table.png" width="330">
+    <div style="display: flex; gap: 10px;"> 
+        <img alt="welcome screen preview" src="images/0_welcome_screen.png" width="300">
+        <img alt="login screen preview" src="images/1_login_menu.png" width="300">
+        <img alt="managers menu preview" src="images/2_managers_menu.png" width="300">
     </div>
     <p align="center">
-        <img alt="update contract" src="images/4_update_contract.png" width="612">
+        <img alt="clients table preview" src="images/3_clients_table.png" width="525">
+        <img alt="update contract preview" src="images/4_update_contract.png" width="200">
     </p>
     <br/>
     <br/>
