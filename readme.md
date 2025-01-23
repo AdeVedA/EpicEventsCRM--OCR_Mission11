@@ -78,6 +78,15 @@ The `models` directory contains the database models defined using SQLAlchemy. Th
 
 -   **models.py**: Defines the database models for users, clients, contracts, and events.
 
+<p align="center">
+  <br/>
+  <picture> 
+    <img alt="DB Model" src="images/DB_model.png" width="913">
+  </picture>
+  <br/>
+  <br/>
+</p>
+
 ### Validator
 
 The `validator` directory contains input validation functions to ensure that user inputs are correct and valid.
