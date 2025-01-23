@@ -113,7 +113,7 @@ The `main.py` file is the entry point of the application. It initializes the app
 
 ### Environment Configuration
 
-The little script `init_config.py` will guide you through environment variable setting, database tables creation and
+The little script `init_config.py` will guide you through environment variable setting, database tables creation and creation of your first admin/manager user.
 The `.env` file contains environment variables for configuring the database connection.
 
 ---
