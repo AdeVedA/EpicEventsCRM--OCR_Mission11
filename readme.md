@@ -2,7 +2,6 @@
 
 <p align="center">=========================================================================</p>
 <p align="center">
-    <br/>
     <div style="display: flex; gap: 5px;"> 
         <img alt="welcome screen preview" src="images/0_welcome_screen.png" width="290">
         <img alt="login screen preview" src="images/1_login_menu.png" width="290">
@@ -12,8 +11,6 @@
         <img alt="clients table preview" src="images/3_clients_table.png" width="525">
         <img alt="update contract preview" src="images/4_update_contract.png" width="200">
     </p>
-    <br/>
-    <br/>
 </p>
 
 ### <p align="center">- Epic Events CRM Software -</p>
