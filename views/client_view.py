@@ -85,7 +85,6 @@ class ClientView(View):
     def get_client_update_data(self, client, commercials):
         """Ask the user for client fields to update."""
         View.menu("Client Update Datas - " + str(self.username.capitalize()), [])
-        # print("\x1b[A\x1b[2K\x1B[A")
         View.space(23)
         View.prt_info_blue(f"Updating Client ID:\x1B[0;0m \x1B[93m{client.id}")
         View.prt_yellow(f"Current Full Name: \x1B[35m{client.full_name}")

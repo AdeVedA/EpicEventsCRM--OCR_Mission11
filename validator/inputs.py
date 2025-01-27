@@ -6,14 +6,14 @@ from views.error_view import ErrorView
 
 class Input:
     @staticmethod
-    def _input(prompt):
+    def _input(prompt: str):
         """Replace input() displaying prompt in blue and releasing in yellow for answers."""
         BLUE = "\x1B[94m"
         RESET = "\x1B[93m"
         return input(f"{BLUE}{prompt}{RESET}")
 
     @staticmethod
-    def integer(prompt, choices=None, upd=False):
+    def integer(prompt: str, choices=None, upd=False):
         while True:
             try:
                 user_input = Input._input(prompt)
@@ -30,7 +30,7 @@ class Input:
             return result
 
     @staticmethod
-    def float(prompt, limit=None, choices=None, upd=False):
+    def float(prompt: str, limit=None, choices=None, upd=False):
         while True:
             try:
                 user_input = Input._input(prompt)
@@ -51,7 +51,7 @@ class Input:
             return result
 
     @staticmethod
-    def string(prompt, choices=None, upd=False):
+    def string(prompt: str, choices=None, upd=False):
         while True:
             try:
                 user_input = Input._input(prompt)
@@ -68,7 +68,7 @@ class Input:
             return result
 
     @staticmethod
-    def string_name(prompt, choices=None, upd=False):
+    def string_name(prompt: str, choices=None, upd=False):
         while True:
             try:
                 user_input = Input._input(prompt)
@@ -88,7 +88,7 @@ class Input:
             return result
 
     @staticmethod
-    def date(prompt, upd=False):
+    def date(prompt: str, upd=False):
         while True:
             user_input = Input._input(prompt)
             if user_input.strip() == "" and upd:
@@ -111,7 +111,7 @@ class Input:
             return result
 
     @staticmethod
-    def event_date(prompt, upd=False):
+    def event_date(prompt: str, upd=False):
         while True:
             user_input = Input._input(prompt)
             if user_input.strip() == "" and upd:
@@ -132,7 +132,7 @@ class Input:
             return result
 
     @staticmethod
-    def date_default_to_now(prompt, upd=False):
+    def date_default_to_now(prompt: str, upd=False):
         while True:
             result = Input._input(prompt).strip()
             if result == "":
@@ -153,7 +153,7 @@ class Input:
             return result
 
     @staticmethod
-    def email(prompt, choices=None, upd=False):
+    def email(prompt: str, choices=None, upd=False):
         while True:
             user_input = Input._input(prompt)
             if user_input.strip() == "" and upd:
@@ -169,7 +169,7 @@ class Input:
             return result
 
     @staticmethod
-    def anything(prompt, choices=None, upd=False):
+    def anything(prompt: str, choices=None, upd=False):
         while True:
             user_input = Input._input(prompt)
             if user_input.strip() == "" and upd:
@@ -185,20 +185,20 @@ class Input:
             return result
 
     @staticmethod
-    def phone_number(prompt, choices=None, upd=False):
+    def phone_number(prompt: str, choices=None, upd=False):
         while True:
             user_input = Input._input(prompt)
             if user_input.strip() == "" and upd:
                 return
             else:
                 result = user_input.strip()
-            if result == "" or re.match(r"^\+?[0-9]+(?: [0-9]+)*$", result) is None:
-                ErrorView().alert("Please give a valid phone number (e.g. 06 68 15 24 64 or +33 6 78 989 515)")
+            if result == "" or re.match(r"^(?:\+?[1-9][0-9]{0,3})?(?: ?[0-9]{1,4}){2,5}$", result) is None:
+                ErrorView().alert("Please give a valid phone number (e.g. 0668152464 or +33 6 78 989 515)")
                 continue
             return result
 
     @staticmethod
-    def company_name(prompt, choices=None, upd=False):
+    def company_name(prompt: str, choices=None, upd=False):
         while True:
             user_input = Input._input(prompt)
             if user_input.strip() == "" and upd:
@@ -211,7 +211,7 @@ class Input:
             return result
 
     @staticmethod
-    def role(prompt, choices=None, upd=False):
+    def role(prompt: str, choices=None, upd=False):
         while True:
             user_input = Input._input(prompt)
             if user_input.strip() == "" and upd:
@@ -224,7 +224,7 @@ class Input:
             return result
 
     @staticmethod
-    def signed_contract(prompt, choices=None, upd=False):
+    def signed_contract(prompt: str, choices=None, upd=False):
         while True:
             user_input = Input._input(prompt)
             if user_input.strip() == "" and upd:

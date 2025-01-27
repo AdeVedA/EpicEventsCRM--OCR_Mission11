@@ -140,7 +140,6 @@ class EventView(View):
     def get_event_update_data(self, event, contracts, supports):
         """Ask the user for event fields to update."""
         View.menu("Event Update Datas - " + str(self.username.capitalize()), [])
-        # print("\x1B[A\x1b[2K\x1B[A")
         View.space(23)
         View.prt_info_blue(f"Updating Event ID:\x1B[0;0m \x1B[93m{event.id}")
 
@@ -159,8 +158,9 @@ class EventView(View):
         new_title = Input.anything("\x1B[94mNew Title : \x1B[93m", upd=True)
         if new_title:
             updated_data["title"] = new_title
-
-        contracts_list = View.show_compact_list("Contracts to choose from ", contracts, "full_name")
+        contracts_list = View.show_compact_list(
+            "Contracts to choose from (\x1B[93mcontract id: \x1B[35mclient id)", contracts, "client_id"
+        )
         new_contract_id = Input.integer("\x1B[94mNew Contract ID : \x1B[93m", choices=contracts_list, upd=True)
         if new_contract_id:
             updated_data["contract_id"] = new_contract_id
@@ -173,7 +173,7 @@ class EventView(View):
         if new_end_date:
             updated_data["end_date"] = new_end_date
 
-        supports_list = View.show_compact_list("Supports to choose from ", supports, "full_name")
+        supports_list = View.show_compact_list("Supports to choose from ", supports, "username")
         new_support_id = Input.integer("\x1B[94mNew Contract ID : \x1B[93m", choices=supports_list, upd=True)
         if new_support_id:
             updated_data["support_contact_id"] = new_support_id

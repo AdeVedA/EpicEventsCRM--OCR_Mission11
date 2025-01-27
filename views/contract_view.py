@@ -117,7 +117,6 @@ class ContractView(View):
     def get_contract_update_data(self, contract, clients, commercials):
         """Ask the user for contract fields to update."""
         View.menu("Contract Update Datas - " + str(self.username.capitalize()), [])
-        # print("\x1B[A\x1b[2K\x1B[A")
         View.space(23)
         View.prt_info_blue(f"Updating Contract ID:\x1B[0;0m \x1B[93m{contract.id}")
 
